@@ -1,0 +1,9 @@
+команды на один раз в проекте
+git init Команда для создания скрытого файла .git
+git remote add origin https://github.com/ka1ratt3/oop.git | для привязки проекта к репе
+
+git config --global user.name "ka1ratt3"
+git config --global user.email "hachushka81311@gmail.com"
+
+
+команды которые часто пишутся в git
