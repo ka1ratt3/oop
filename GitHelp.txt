@@ -31,3 +31,8 @@ git pull origin master | Команда для получения изменен
 .venv\Scripts\activate
 
 pip freeze - команда для получения списка установленных пакетов
+pip freeze -> requrements.txt
+
+python3 -m venv venv_name | команда для создания вирт окружения для linux
+python -m venv venv_name | команда для создания вирт окружения linux
+py -m venv venv_name | команда для создания вирт окружения linux
