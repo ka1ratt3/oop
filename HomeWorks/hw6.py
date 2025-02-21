@@ -18,8 +18,6 @@ cursor.execute('''
 connect.commit()
 
 
-# CRUD - Create - Read - Update - Delete
-
 
 # Create
 def add_user(name, age, hobby):
