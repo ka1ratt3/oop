@@ -30,7 +30,6 @@ def add_user(name, age, hobby):
     connect.commit()
     print(f"Пользователь {name} добавлен")
 
-
 # name = input("Введите имя")
 # age = input("Введите возраст")
 # hobby = input("Введите Хоби")
@@ -47,19 +46,11 @@ def get_all_users():
     for i in users:
         print(f"NAME: {i[0]}, AGE: {i[1]}, HOBBY: {i[2]}")
 
-
 def get_user_by_name(name):
-    cursor.execute('SELECT name, age, hobby FROM users WHERE name = ?', (name,))
-    user = cursor.fetchone()
-    if user:
-        print(f"NAME: {user[0]} AGE: {user[1]} HOBBY: {user[2]}")
-        return user
-    else:
-        print("Пользователь не найден")
-        return None
-
-
-get_all_users()
-
-# Пример вызова функции get_user_by_name
-print(get_user_by_name('Ardager'))
+    cursor.execute(
+        'SELECT * FROM users WHERE name = ?',
+        (name,)
+    )
+    user = cursor.fetchall()
+    
+    print(user)
