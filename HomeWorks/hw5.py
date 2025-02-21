@@ -1,13 +1,7 @@
-def find_pairs(arr, target):
-    n = len(arr)
-    pairs = []
-    for i in range(n):
-        for j in range(i + 1, n):
-            if arr[i] + arr[j] == target:
-                pairs.append((arr[i], arr[j]))
-    return pairs
+def halve_number(n):
+    while n > 1:
+        print(n)
+        n //= 2  # Делим число на 2
 
-
-arr = [1, 2, 3, 4, 5]
-target = 6
-print(find_pairs(arr, target))  # [(1, 5), (2, 4)]
+# Пример использования
+halve_number(100)
