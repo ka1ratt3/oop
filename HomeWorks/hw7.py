@@ -27,15 +27,16 @@ cursor.execute('''
 
 connect.commit()
 
+
 # Create
 def add_user(name, age, hobby):
-    
     cursor.execute(
         'INSERT INTO users(name, age, hobby) VALUES (?,?,?)',
         (name, age, hobby)
     )
     connect.commit()
     print(f"Пользователь {name} добавлен")
+
 
 # add_user("Ardager", 23, "плавать")
 # add_user("Oleg", 23, "плавать")
@@ -51,8 +52,8 @@ def add_grade(user_id, subject, grade):
                    (user_id, subject, grade))
     connect.commit()
     print(f"Оценка добавлена для пользователя с ID {user_id}!!!")
-    
 
+#
 # add_grade(4, "Алгебра", 5)
 # add_grade(3, "Алгебра", 5)
 # add_grade(2, "Алгебра", 5)
@@ -64,30 +65,32 @@ def add_grade(user_id, subject, grade):
 
 
 def get_users_with_grades():
-    
     # Зайди и возьми из таблицы users столб name , из таблицы grades столб subject,
     #  из таблицы grades столб grade
     # ТАМ - ИЗ users
-    #Соедени  users с grades в табиле users возьми первое знаяение в сталбце user_id 
+    # Соедени  users с grades в табиле users возьми первое знаяение в сталбце user_id
     # иши записи которые user_id  из users в таблице grades по столбцу user_id
-    
+
     cursor.execute('''
-        SELECT users.name, users.age, grades.subject, grades.grade
+        SELECT users.name, grades.subject, grades.grade
         FROM users 
         LEFT JOIN grades ON users.user_id = grades.user_id
                    ''')
-    
+
     users = cursor.fetchall()
     for i in users:
         print(f"NAME: {i[0]}, SUBJECT: {i[1]}, GRADE: {i[2]}")
-        
-        
-# get_users_with_grades()
-    
-def get_average_grade():
-    cursor.execute('SELECT SUM(grade) FROM grades')
-    avg_grade = cursor.fetchone()
 
-    print(f'Средний балл за дз {avg_grade}')
 
-get_average_grade()
+
+def update_grade(grade_id, new_grade):
+    cursor.execute('''
+        UPDATE grades
+        SET grade = ?
+        WHERE grade_id = ?
+    ''', (new_grade, grade_id))
+    connect.commit()
+    print(f"Subject id {grade_id} updated with grade {new_grade}!")
+update_grade(2, 4)
+update_grade(5, 3)
+update_grade(1,2)

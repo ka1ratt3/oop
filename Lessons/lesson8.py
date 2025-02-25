@@ -37,11 +37,11 @@ def add_user(name, age, hobby):
     connect.commit()
     print(f"Пользователь {name} добавлен")
 
-# add_user("Ardager", 23, "плавать")
-# add_user("Oleg", 23, "плавать")
-# add_user("John", 23, "плавать")
-# add_user("Doe", 23, "плавать")
-# add_user("Anna", 23, "плавать")
+# add_user("Ardager", 22, "плавать")
+# add_user("Oleg", 47, "плавать")
+# add_user("John", 50, "плавать")
+# add_user("Doe", 11, "плавать")
+# add_user("Anna", 12, "плавать")
 
 
 def add_grade(user_id, subject, grade):
@@ -85,9 +85,65 @@ def get_users_with_grades():
 # get_users_with_grades()
     
 def get_average_grade():
-    cursor.execute('SELECT SUM(grade) FROM grades')
+    cursor.execute('SELECT AVG(grade) FROM grades')
     avg_grade = cursor.fetchone()
 
     print(f'Средний балл за дз {avg_grade}')
 
 get_average_grade()
+
+def get_count_users():
+    cursor.execute('SELECT COUNT(*) FROM users')
+    count = cursor.fetchone()
+
+    print(f'Количество пользователей: {count}')
+
+
+get_count_users()
+
+
+
+# """Вложенные запросы"""
+
+# def get_users_with_highest_grade():
+#     cursor.execute('''
+#         SELECT name, subject, grade
+#         FROM users
+#         JOIN grades ON users.user_id = grades.user_id
+#         WHERE grade = (SELECT MAX(grade) FROM grades)
+                            
+#         ''')
+    
+#     user = cursor.fetchall()
+
+#     for i in users:
+#         print(f"NAME: {i[0]}, SUBJECt: {i[1]}, GRADE: {i[2]}")
+
+# get_users_with_highest_grade()
+
+
+
+# views (Представления)
+
+def create_young_users_view():
+    cursor.execute('''
+        CREATE VIEW IF NOT EXISTS young_users AS
+        SELECT name, age, hobby FROM users
+        WHERE age < 25
+        
+
+        ''')
+    connect.commit()
+    print("Представления созданы!!!")
+
+create_young_users_view()
+
+def get_young_users():
+    cursor.execute(' SELECT * FROM young_users')
+    users = cursor.fetchall()
+
+    print('Молодын пользователи до 25 лет')
+    for i in users:
+        print(f"NAME: {i[0]}, AGE: {i[1]}, HOBBY: {i[2]}")
+
+get_young_users()
